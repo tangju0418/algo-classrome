@@ -1,10 +1,11 @@
-package p001
+package p0001
 
 import (
 	"sort"
 )
 
 // one pass hash, time O(n), space O(n)
+// Find the index
 func twoSum(nums []int, target int) []int {
 	marks := make(map[int]int, len(nums))
 	for i := 0; i < len(nums); i++ {
@@ -22,6 +23,7 @@ func twoSum(nums []int, target int) []int {
 }
 
 // one pass, time O(lgn), space O(1)
+// Find the num
 func twoSum2(nums []int, target int) []int {
 	sort.Ints(nums)
 	i := 0

@@ -1,4 +1,4 @@
-package p001
+package p0001
 
 import (
 	"sort"
@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type p001TestSuite struct {
+type p0001TestSuite struct {
 	suite.Suite
 }
 
@@ -27,7 +27,7 @@ var values = []record{
 	},
 }
 
-func (s *p001TestSuite) TestTwoSum() {
+func (s *p0001TestSuite) TestTwoSum() {
 	for _, v := range values {
 		r := twoSum(v.nums, v.target)
 		s.NotNil(r)
@@ -37,7 +37,7 @@ func (s *p001TestSuite) TestTwoSum() {
 	}
 }
 
-func (s *p001TestSuite) TestTwoSum2() {
+func (s *p0001TestSuite) TestTwoSum2() {
 	for _, v := range values {
 		r := twoSum2(v.nums, v.target)
 		s.NotNil(r)
@@ -47,7 +47,7 @@ func (s *p001TestSuite) TestTwoSum2() {
 	}
 }
 
-func TestP001TestSuite(t *testing.T) {
-	s := &p001TestSuite{}
+func TestP0001TestSuite(t *testing.T) {
+	s := &p0001TestSuite{}
 	suite.Run(t, s)
 }
