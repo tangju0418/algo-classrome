@@ -28,6 +28,11 @@ var values = []result{
 		arg2:   4,
 		target: "agmsybfhlnrtxzceikoquwdjpv",
 	},
+	{
+		arg1:   "A",
+		arg2:   1,
+		target: "A",
+	},
 }
 
 type p0006TestSuite struct {
