@@ -1,45 +1,30 @@
 package p0006
 
 func convert(s string, numRows int) string {
-	if numRows <= 1 {
-		return s
-	}
-
 	dst := make([]byte, len(s))
-	j := 0
-	si := 1
-	row := 1
-	for si <= len(s) {
-		dst[j] = s[si-1]
-		si = si + (numRows-row)*2
-		j++
-	}
-
-	row = 2
-	for row < numRows {
-		si = row
-		column := true
-		for si <= len(s) {
-			dst[j] = s[si-1]
-			if column {
-				si = si + (numRows-row)*2
-				column = !column
-			} else {
-				si = si + (row-1)*2
-				column = !column
-			}
-
-			j++
+	next := func(maxRows int, row int, prev int) int {
+		if maxRows <= 1 {
+			return prev + 1
 		}
-		row++
+
+		if ((prev - row) % ((maxRows - 1) * 2)) != 0 {
+			return prev + (row-1)*2
+		}
+
+		if row == maxRows {
+			row = 1
+		}
+		return prev + (maxRows-row)*2
 	}
 
-	row = numRows
-	si = row
-	for si <= len(s) {
-		dst[j] = s[si-1]
-		si = si + (numRows-1)*2
-		j++
+	j := 0
+	for row := 1; row <= numRows; row++ {
+		prev := row
+		for prev <= len(s) && j < len(s) {
+			dst[j] = s[prev-1]
+			j++
+			prev = next(numRows, row, prev)
+		}
 	}
 
 	return string(dst)
