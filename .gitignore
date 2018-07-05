@@ -16,3 +16,4 @@ vendor
 
 # for js
 node_modules
+yarn-error.log
