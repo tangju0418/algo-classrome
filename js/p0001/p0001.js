@@ -1,5 +1,5 @@
 export default function findSum(nums, target){
-    let len = nums.length;
+    const len = nums.length;
     let index0 = -1;
     let index1 = -1;
     nums.forEach((a,index) => {
