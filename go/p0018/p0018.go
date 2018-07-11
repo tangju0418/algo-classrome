@@ -1,8 +1,6 @@
-package p0015
+package p0018
 
-import (
-	"sort"
-)
+import "sort"
 
 func threeSumTarget(nums []int, target0 int) [][]int {
 	rs := make([][]int, 0)
@@ -44,7 +42,20 @@ func threeSumTarget(nums []int, target0 int) [][]int {
 	return rs
 }
 
-func threeSum(nums []int) [][]int {
+func fourSum(nums []int, target int) [][]int {
 	sort.Ints(nums)
-	return threeSumTarget(nums, 0)
+	rs := make([][]int, 0)
+
+	for i := 0; i < len(nums)-3; i++ {
+		if i != 0 && nums[i] == nums[i-1] {
+			continue
+		}
+
+		rs3 := threeSumTarget(nums[i+1:], target-nums[i])
+		for _, row := range rs3 {
+			rs = append(rs, []int{nums[i], row[0], row[1], row[2]})
+		}
+	}
+
+	return rs
 }
