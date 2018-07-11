@@ -10,7 +10,6 @@ def _loadTestcasesFromDir(dirpath, lastDir):
     for filename in os.listdir(dirpath):
         filepath = os.path.join(dirpath, filename)
         if os.path.isfile(filepath) and filename.endswith('_test.py'):
-            print('--------------', filepath)
             testModule = importlib.import_module('{}.{}'.format(
                 lastDir, filename[:-3])
                 )
@@ -36,8 +35,6 @@ def loadTestcases(dirpath):
 
 if __name__ == '__main__':
     suites = unittest.TestSuite(loadTestcases(os.getcwd()))
-
-    # suites.addTest(TestP0001('test_p0001'))
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suites)

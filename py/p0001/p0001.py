@@ -8,4 +8,11 @@ class Solution:
         :type target: int
         :rtype: List[int]
         """
-        return None
+        mark = {}
+        for index, num in enumerate(nums):
+            solve = target - num
+            if solve in mark:
+                return [mark[solve], index]
+            else:
+                mark[num] = index
+        return []
