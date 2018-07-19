@@ -26,6 +26,14 @@ var values = []result{
 		arg1:   []int{-2, 1, -3, 4, -1, 2, 1, -5, 4},
 		target: 6,
 	},
+	{
+		arg1:   []int{-2, 1},
+		target: 1,
+	},
+	{
+		arg1:   []int{1, 2},
+		target: 3,
+	},
 }
 
 type p0053TestSuite struct {
