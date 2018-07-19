@@ -18,7 +18,10 @@ class Solution(object):
             c = strs[0][i]
             for s in strs:
                 if i >= len(s) or c != s[i]:
-                    return strs[0][:lens]
-            lens += 1
+                    break
+            else:
+                lens += 1
+                continue
+            break
 
         return strs[0][:lens]
