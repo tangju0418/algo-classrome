@@ -14,11 +14,12 @@
 
 package p0083
 
+import (
+	"github.com/lsytj0413/algo-classrome/go/comm"
+)
+
 // ListNode for singly-linked list
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+type ListNode = comm.ListNode
 
 func deleteDuplicates(head *ListNode) *ListNode {
 	nhead := &ListNode{}

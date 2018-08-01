@@ -13,6 +13,8 @@ package p0021
 import (
 	"testing"
 
+	"github.com/lsytj0413/algo-classrome/go/comm"
+
 	"github.com/stretchr/testify/suite"
 )
 
@@ -66,24 +68,11 @@ func assertEqual(t suite.Suite, expected *ListNode, actual *ListNode) {
 }
 
 func init() {
-	links := func(args []int) *ListNode {
-		head := &ListNode{}
-		tail := head
-		for _, v := range args {
-			tail.Next = &ListNode{
-				Val:  v,
-				Next: nil,
-			}
-			tail = tail.Next
-		}
-		return head.Next
-	}
-
 	for _, v := range values {
 		results = append(results, &result{
-			l1:     links(v.arg1),
-			l2:     links(v.arg2),
-			target: links(v.target),
+			l1:     comm.Links(v.arg1),
+			l2:     comm.Links(v.arg2),
+			target: comm.Links(v.target),
 		})
 	}
 }

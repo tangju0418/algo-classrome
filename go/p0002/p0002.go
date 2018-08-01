@@ -14,11 +14,12 @@
 
 package p0002
 
+import (
+	"github.com/lsytj0413/algo-classrome/go/comm"
+)
+
 // ListNode for singly-linked list
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+type ListNode = comm.ListNode
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	head := &ListNode{}
