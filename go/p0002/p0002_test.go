@@ -267,7 +267,7 @@ func (s *p0002TestSuite) TestAddTwoNumbers() {
 
 	for _, v := range results {
 		actual := addTwoNumbers(v.l1, v.l2)
-		assertEqual(s.Suite, v.target, actual)
+		comm.AssertLinkEqual(s.Suite, v.target, actual)
 	}
 }
 
@@ -276,19 +276,7 @@ func TestP0002TestSuite(t *testing.T) {
 	suite.Run(t, s)
 }
 
-func assertEqual(t suite.Suite, expected *ListNode, actual *ListNode) {
-	for expected != nil && actual != nil {
-		t.Equal(expected.Val, actual.Val)
-		expected = expected.Next
-		actual = actual.Next
-	}
-
-	t.Nil(expected)
-	t.Nil(actual)
-}
-
 func init() {
-
 	for _, v := range values {
 		results = append(results, &result{
 			l1:     comm.Links(v.arg1),

@@ -14,6 +14,8 @@
 
 package comm
 
+import "github.com/stretchr/testify/suite"
+
 // ListNode for singly-linked list
 type ListNode struct {
 	Val  int
@@ -33,4 +35,16 @@ func Links(arg []int) *ListNode {
 	}
 
 	return head.Next
+}
+
+// AssertLinkEqual check the link node is equal
+func AssertLinkEqual(t suite.Suite, expected *ListNode, actual *ListNode) {
+	for expected != nil && actual != nil {
+		t.Equal(expected.Val, actual.Val)
+		expected = expected.Next
+		actual = actual.Next
+	}
+
+	t.Nil(expected)
+	t.Nil(actual)
 }

@@ -47,24 +47,13 @@ type p0021TestSuite struct {
 func (s *p0021TestSuite) Test() {
 	for _, v := range results {
 		l := mergeTwoLists(v.l1, v.l2)
-		assertEqual(s.Suite, v.target, l)
+		comm.AssertLinkEqual(s.Suite, v.target, l)
 	}
 }
 
 func TestP0021TestSuite(t *testing.T) {
 	s := &p0021TestSuite{}
 	suite.Run(t, s)
-}
-
-func assertEqual(t suite.Suite, expected *ListNode, actual *ListNode) {
-	for expected != nil && actual != nil {
-		t.Equal(expected.Val, actual.Val)
-		expected = expected.Next
-		actual = actual.Next
-	}
-
-	t.Nil(expected)
-	t.Nil(actual)
 }
 
 func init() {
