@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package p0119
+package p0118
 
 import (
 	"testing"
@@ -18,31 +18,33 @@ import (
 
 type result struct {
 	arg1   int
-	target []int
+	target [][]int
 }
 
 var values = []result{
 	{
-		arg1:   3,
-		target: []int{1, 3, 3, 1},
-	},
-	{
-		arg1:   4,
-		target: []int{1, 4, 6, 4, 1},
+		arg1: 5,
+		target: [][]int{
+			[]int{1},
+			[]int{1, 1},
+			[]int{1, 2, 1},
+			[]int{1, 3, 3, 1},
+			[]int{1, 4, 6, 4, 1},
+		},
 	},
 }
 
-type p0119TestSuite struct {
+type p0118TestSuite struct {
 	suite.Suite
 }
 
-func (s *p0119TestSuite) Test() {
+func (s *p0118TestSuite) Test() {
 	for _, v := range values {
-		s.Equal(v.target, getRow(v.arg1))
+		s.Equal(v.target, generate(v.arg1))
 	}
 }
 
-func TestP0119TestSuite(t *testing.T) {
-	s := &p0119TestSuite{}
+func TestP0118TestSuite(t *testing.T) {
+	s := &p0118TestSuite{}
 	suite.Run(t, s)
 }
