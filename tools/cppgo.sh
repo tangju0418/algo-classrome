@@ -6,6 +6,7 @@ usage() {
 }
 
 PROGNAME=$(basename $0)
+BASEPATH=$(cd `dirname $0`; pwd)
 src=
 dest=
 filename=
@@ -44,7 +45,7 @@ if [[ ! (( "$src" =~ ^[0-9]+$ ) && ( "$dest" =~ ^[0-9]+$ )) ]]; then
 fi
 
 if [[ -z $dir ]]; then
-    dir="../go"
+    dir=$(dirname ${BASEPATH})/go
     echo "--dir not provided, use default value ${dir}"
 fi
 
