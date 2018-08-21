@@ -14,10 +14,6 @@
 
 package p0665
 
-import (
-	"math"
-)
-
 func checkPossibility(nums []int) bool {
 	i, j := 0, len(nums)-1
 	for i < j && nums[i] <= nums[i+1] {
@@ -28,21 +24,15 @@ func checkPossibility(nums []int) bool {
 		j--
 	}
 
-	head := 0
-	if i == 0 {
-		head = math.MinInt64
-	} else {
-		head = nums[i-1]
+	if j-i > 1 {
+		return false
 	}
 
-	next := 0
-	if j == len(nums)-1 {
-		next = math.MaxInt64
-	} else {
-		next = nums[j+1]
+	if i == 0 || j == len(nums)-1 {
+		return true
 	}
 
-	if j-i <= 1 && (head <= nums[j] || nums[i] <= next) {
+	if nums[i-1] <= nums[j] || nums[i] <= nums[j+1] {
 		return true
 	}
 
