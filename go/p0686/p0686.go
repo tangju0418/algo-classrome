@@ -19,28 +19,17 @@ import (
 )
 
 func repeatedStringMatch(A string, B string) int {
-	switch {
-	case len(A) >= len(B):
-		if strings.Index(A, B) != -1 {
-			return 1
-		}
-		if strings.Index(A+A, B) != -1 {
-			return 2
-		}
-	case len(A) < len(B):
-		dest := A
-		count := 1
-		for len(dest) < len(B) {
-			count++
-			dest = dest + A
-		}
+	count, dest := 1, A
+	for len(dest) < len(B) {
+		count++
+		dest += A
+	}
 
-		if strings.Index(dest, B) != -1 {
-			return count
-		}
-		if strings.Index(dest+A, B) != -1 {
-			return count + 1
-		}
+	if strings.Index(dest, B) != -1 {
+		return count
+	}
+	if strings.Index(dest+A, B) != -1 {
+		return count + 1
 	}
 
 	return -1
