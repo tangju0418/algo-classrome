@@ -14,7 +14,11 @@
 
 package comm
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/stretchr/testify/suite"
+)
 
 // TreeNode is a binary tree node
 type TreeNode struct {
@@ -77,4 +81,18 @@ func PrintTree(root *TreeNode, prefix string) {
 		PrintTree(root.Left, prefix+"  ")
 		PrintTree(root.Right, prefix+"  ")
 	}
+}
+
+// AssertTreeEqual check the link node is equal
+func AssertTreeEqual(t suite.Suite, expected *TreeNode, actual *TreeNode) {
+	if expected == nil && actual == nil {
+		return
+	}
+	t.NotNil(expected)
+	t.NotNil(actual)
+
+	t.Equal(expected.Val, actual.Val)
+
+	AssertTreeEqual(t, expected.Left, actual.Left)
+	AssertTreeEqual(t, expected.Right, actual.Right)
 }
