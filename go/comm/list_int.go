@@ -14,7 +14,12 @@
 
 package comm
 
-import "github.com/stretchr/testify/suite"
+import (
+	"bytes"
+	"fmt"
+
+	"github.com/stretchr/testify/suite"
+)
 
 // ListNode for singly-linked list
 type ListNode struct {
@@ -35,6 +40,33 @@ func Links(arg []int) *ListNode {
 	}
 
 	return head.Next
+}
+
+// FindListNode returns the Node.Val equals target or nil
+func FindListNode(n *ListNode, target int) *ListNode {
+	for n != nil && n.Val != target {
+		n = n.Next
+	}
+
+	return n
+}
+
+// PrintList ...
+func PrintList(l *ListNode) {
+	b := bytes.Buffer{}
+	b.WriteString("[")
+
+	for l != nil {
+		b.WriteString(fmt.Sprintf("%d", l.Val))
+		l = l.Next
+		if l != nil {
+			b.WriteString(", ")
+		}
+	}
+
+	b.WriteString("]")
+
+	fmt.Println(b.String())
 }
 
 // AssertLinkEqual check the link node is equal
