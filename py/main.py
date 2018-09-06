@@ -14,7 +14,7 @@ def _loadTestcasesFromDir(dirpath, lastDir):
                 lastDir, filename[:-3])
                 )
             for attrname in dir(testModule):
-                attrresult = getattr(testModule, attrname)
+                attrvalue = getattr(testModule, attrname)
                 if (isinstance(attrvalue, type) and
                         issubclass(attrvalue, unittest.TestCase)):
                     cases.append(
