@@ -46,7 +46,7 @@ fi
 
 if [[ -z $dir ]]; then
     dir=$(dirname ${BASEPATH})/go
-    echo "--dir not provided, use default value ${dir}"
+    echo "--dir not provided, use default result ${dir}"
 fi
 
 echo "cpp from ${dir}/p${src} to ${dir}/p${dest} "
