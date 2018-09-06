@@ -24,12 +24,12 @@ type p0893TestSuite struct {
 	suite.Suite
 }
 
-type value struct {
+type result struct {
 	arg1   []string
 	target int
 }
 
-var values = []value{
+var values = []result{
 	{
 		arg1:   []string{"a", "b", "c", "a", "c", "c"},
 		target: 3,

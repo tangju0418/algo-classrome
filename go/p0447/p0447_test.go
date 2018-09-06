@@ -24,12 +24,12 @@ type p0447TestSuite struct {
 	suite.Suite
 }
 
-type value struct {
+type result struct {
 	arg1   [][]int
 	target int
 }
 
-var values = []value{
+var values = []result{
 	{
 		arg1: [][]int{
 			[]int{0, 0},

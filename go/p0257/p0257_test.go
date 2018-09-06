@@ -18,12 +18,12 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type value struct {
+type result struct {
 	arg1   []int
 	target []string
 }
 
-var values = []value{
+var values = []result{
 	{
 		arg1:   []int{1, 2, 3, 0xFFFFFFFF, 5},
 		target: []string{"1->2->5", "1->3"},
