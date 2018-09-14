@@ -18,13 +18,13 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type record struct {
+type result struct {
 	arg1   []int
 	arg2   []int
 	target []int
 }
 
-var values = []record{
+var values = []result{
 	{
 		arg1:   []int{1, 2, 4},
 		arg2:   []int{1, 3, 4},
@@ -32,36 +32,18 @@ var values = []record{
 	},
 }
 
-type result struct {
-	l1     *ListNode
-	l2     *ListNode
-	target *ListNode
-}
-
-var results []*result
-
 type p0021TestSuite struct {
 	suite.Suite
 }
 
 func (s *p0021TestSuite) Test() {
-	for _, v := range results {
-		l := mergeTwoLists(v.l1, v.l2)
-		comm.AssertLinkEqual(s.Suite, v.target, l)
+	for _, v := range values {
+		l := mergeTwoLists(comm.Links(v.arg1), comm.Links(v.arg2))
+		comm.AssertLinkEqual(s.Suite, comm.Links(v.target), l)
 	}
 }
 
 func TestP0021TestSuite(t *testing.T) {
 	s := &p0021TestSuite{}
 	suite.Run(t, s)
-}
-
-func init() {
-	for _, v := range values {
-		results = append(results, &result{
-			l1:     comm.Links(v.arg1),
-			l2:     comm.Links(v.arg2),
-			target: comm.Links(v.target),
-		})
-	}
 }

@@ -20,21 +20,21 @@ import (
 )
 
 type result struct {
-	args   string
+	arg1   string
 	target int
 }
 
 var values = []result{
 	{
-		args:   "abcabcbb",
+		arg1:   "abcabcbb",
 		target: 3,
 	},
 	{
-		args:   "bbbbb",
+		arg1:   "bbbbb",
 		target: 1,
 	},
 	{
-		args:   "pwwkew",
+		arg1:   "pwwkew",
 		target: 3,
 	},
 }
@@ -45,7 +45,7 @@ type p0003TestSuite struct {
 
 func (s *p0003TestSuite) Test() {
 	for _, v := range values {
-		s.Equal(v.target, lengthOfLongestSubstring(v.args))
+		s.Equal(v.target, lengthOfLongestSubstring(v.arg1))
 	}
 }
 

@@ -91,6 +91,13 @@ func AssertTreeEqual(t suite.Suite, expected *TreeNode, actual *TreeNode) {
 	t.NotNil(expected)
 	t.NotNil(actual)
 
+	if expected == nil {
+		t.FailNow("expected value should not be nil")
+	}
+	if actual == nil {
+		t.FailNow("actual value should not be nil")
+	}
+
 	t.Equal(expected.Val, actual.Val)
 
 	AssertTreeEqual(t, expected.Left, actual.Left)

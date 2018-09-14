@@ -14,8 +14,6 @@
 
 package p0045
 
-import "fmt"
-
 func jump(nums []int) int {
 	if 0 == len(nums) {
 		return 0
@@ -23,7 +21,7 @@ func jump(nums []int) int {
 
 	count, now, max, index := 0, 0, -1, -1
 	for now < len(nums)-1 {
-		if now + nums[now] >= len(nums)-1 {
+		if now+nums[now] >= len(nums)-1 {
 			count++
 			break
 		}

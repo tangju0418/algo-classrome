@@ -26,12 +26,12 @@ type p0083TestSuite struct {
 	suite.Suite
 }
 
-type record struct {
+type result struct {
 	arg1   []int
 	target []int
 }
 
-var values = []record{
+var values = []result{
 	{
 		arg1:   []int{1, 1, 2},
 		target: []int{1, 2},
@@ -42,32 +42,14 @@ var values = []record{
 	},
 }
 
-type result struct {
-	l1     *ListNode
-	target *ListNode
-}
-
-var results []*result
-
 func (s *p0083TestSuite) TestAddTwoNumbers() {
-	s.Equal(len(values), len(results))
-
-	for _, v := range results {
-		actual := deleteDuplicates(v.l1)
-		comm.AssertLinkEqual(s.Suite, v.target, actual)
+	for _, v := range values {
+		actual := deleteDuplicates(comm.Links(v.arg1))
+		comm.AssertLinkEqual(s.Suite, comm.Links(v.target), actual)
 	}
 }
 
 func TestP0083TestSuite(t *testing.T) {
 	s := &p0083TestSuite{}
 	suite.Run(t, s)
-}
-
-func init() {
-	for _, v := range values {
-		results = append(results, &result{
-			l1:     comm.Links(v.arg1),
-			target: comm.Links(v.target),
-		})
-	}
 }

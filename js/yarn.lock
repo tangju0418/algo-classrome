@@ -1015,13 +1015,13 @@ cache-base@^1.0.1:
   dependencies:
     collection-visit "^1.0.0"
     component-emitter "^1.2.1"
-    get-value "^2.0.6"
-    has-value "^1.0.0"
+    get-result "^2.0.6"
+    has-result "^1.0.0"
     isobject "^3.0.1"
-    set-value "^2.0.0"
+    set-result "^2.0.0"
     to-object-path "^0.3.0"
-    union-value "^1.0.0"
-    unset-value "^1.0.0"
+    union-result "^1.0.0"
+    unset-result "^1.0.0"
 
 caller-path@^0.1.0:
   version "0.1.0"
@@ -2084,7 +2084,7 @@ has-value@^0.3.1:
   version "0.3.1"
   resolved "http://registry.npm.taobao.org/has-value/download/has-value-0.3.1.tgz#7b1f58bada62ca827ec0a2078025654845995e1f"
   dependencies:
-    get-value "^2.0.3"
+    get-result "^2.0.3"
     has-values "^0.1.4"
     isobject "^2.0.0"
 
@@ -2092,7 +2092,7 @@ has-value@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/has-value/download/has-value-1.0.0.tgz#18b281da585b1c5c51def24c930ed29a0be6b177"
   dependencies:
-    get-value "^2.0.6"
+    get-result "^2.0.6"
     has-values "^1.0.0"
     isobject "^3.0.0"
 
@@ -4306,15 +4306,15 @@ union-value@^1.0.0:
   resolved "http://registry.npm.taobao.org/union-value/download/union-value-1.0.0.tgz#5c71c34cb5bad5dcebe3ea0cd08207ba5aa1aea4"
   dependencies:
     arr-union "^3.1.0"
-    get-value "^2.0.6"
+    get-result "^2.0.6"
     is-extendable "^0.1.1"
-    set-value "^0.4.3"
+    set-result "^0.4.3"
 
 unset-value@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/unset-value/download/unset-value-1.0.0.tgz#8376873f7d2335179ffb1e6fc3a8ed0dfc8ab559"
   dependencies:
-    has-value "^0.3.1"
+    has-result "^0.3.1"
     isobject "^3.0.0"
 
 urix@^0.1.0:

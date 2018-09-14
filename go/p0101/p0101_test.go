@@ -17,17 +17,12 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type record struct {
+type result struct {
 	arg1   []int
 	target bool
 }
 
-type result struct {
-	arg1   *TreeNode
-	target bool
-}
-
-var records = []record{
+var values = []result{
 	{
 		arg1:   []int{1, 2, 2, 3, 4, 4, 3},
 		target: true,
@@ -38,28 +33,17 @@ var records = []record{
 	},
 }
 
-var values []result
-
 type p0101TestSuite struct {
 	suite.Suite
 }
 
 func (s *p0101TestSuite) Test() {
 	for _, v := range values {
-		s.Equal(v.target, isSymmetric(v.arg1))
+		s.Equal(v.target, isSymmetric(comm.Trees(v.arg1)))
 	}
 }
 
 func TestP0101TestSuite(t *testing.T) {
 	s := &p0101TestSuite{}
 	suite.Run(t, s)
-}
-
-func init() {
-	for _, v := range records {
-		values = append(values, result{
-			arg1:   comm.Trees(v.arg1),
-			target: v.target,
-		})
-	}
 }

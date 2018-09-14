@@ -25,12 +25,12 @@ type p0234TestSuite struct {
 	suite.Suite
 }
 
-type value struct {
+type result struct {
 	arg1   []int
 	target bool
 }
 
-var values = []value{
+var values = []result{
 	{
 		arg1:   []int{1, 2},
 		target: false,
