@@ -55,8 +55,8 @@ cp -r ${dir}/p${src} ${dir}/p${dest}
 mv ${dir}/p${dest}/p${src}.go ${dir}/p${dest}/p${dest}.go
 mv ${dir}/p${dest}/p${src}_test.go ${dir}/p${dest}/p${dest}_test.go
 
-sed -i "s/${src}/${dest}/g" ${dir}/p${dest}/p${dest}.go
-sed -i "s/${src}/${dest}/g" ${dir}/p${dest}/p${dest}_test.go
+sed -i '' "s/${src}/${dest}/g" ${dir}/p${dest}/p${dest}.go
+sed -i '' "s/${src}/${dest}/g" ${dir}/p${dest}/p${dest}_test.go
 
 echo "Done"
 exit
