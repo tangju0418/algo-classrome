@@ -1,22 +1,28 @@
 import reverse from './p0007';
 
 test('reverse a number', () => {
+  const argLen = reverse.length;
   const testArr = [
     {
-      origin: 123,
+      arg1: 123,
       target: 321,
     },
     {
-      origin: -123,
+      arg1: -123,
       target: -321,
     },
     {
-      origin: 2147483647,
+      arg1: 2147483647,
       target: 0,
     },
   ];
-
   testArr.forEach((el) => {
-    expect(reverse(el.origin)).toEqual(el.target);
+    const args = [];
+    for (let i = 1; i <= argLen; i += 1) {
+      const keyStr = `arg${i}`;
+      args.push(el[keyStr]);
+    }
+
+    expect(reverse.apply(this, args)).toEqual(el.target);
   });
 });
