@@ -12,34 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package p0063
+package p0064
 
-func uniquePathsWithObstacles(obstacleGrid [][]int) int {
-	if 0 == len(obstacleGrid) {
+func minPathSum(grid [][]int) int {
+	if 0 == len(grid) {
 		return 0
 	}
 
-	row, col := len(obstacleGrid), len(obstacleGrid[0])
+	_min := func(x int, y int) int {
+		if x < y {
+			return x
+		}
+		return y
+	}
+
+	row, col := len(grid), len(grid[0])
 	ways := make([][]int, row) // TODO: 优化空间复杂度
 	for i := 0; i < row; i++ {
 		ways[i] = make([]int, col)
 	}
-	ways[0][0] = 1
+	ways[0][0] = grid[0][0]
 
 	for i := 0; i < row; i++ {
 		for j := 0; j < col; j++ {
-			if obstacleGrid[i][j] == 1 {
-				ways[i][j] = 0
-				continue
-			}
-
 			switch {
 			case i == 0 && j > 0:
-				ways[i][j] = ways[i][j-1]
+				ways[i][j] = grid[i][j] + ways[i][j-1]
 			case j == 0 && i > 0:
-				ways[i][j] = ways[i-1][j]
+				ways[i][j] = ways[i-1][j] + grid[i][j]
 			case i > 0 && j > 0:
-				ways[i][j] = ways[i-1][j] + ways[i][j-1]
+				ways[i][j] = _min(ways[i-1][j], ways[i][j-1]) + grid[i][j]
 			}
 		}
 	}
