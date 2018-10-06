@@ -1,26 +1,26 @@
+/* eslint no-param-reassign: 0 */
+/*
+  * index0: The index after the last 0
+  * index:  Iterative pointer
+  * index2: The index before the first 2
+*/
 export default function sortColors(nums) {
-  const arr = nums;
-  const len = arr.length;
+  const len = nums.length;
   let index0 = 0;
-  let index1 = 0;
+  let index = 0;
   let index2 = len - 1;
 
-  while (index1 <= index2) {
-    const x = arr[index1];
+  while (index <= index2) {
+    const x = nums[index];
     if (x === 0) {
-      arr[index1] = arr[index0];
-      arr[index0] = x;
+      [nums[index0], nums[index]] = [nums[index], nums[index0]];
       index0 += 1;
-      if (index1 <= index0) {
-        index1 += 1;
-      }
+      index += 1;
     } else if (x === 2) {
-      arr[index1] = arr[index2];
-      arr[index2] = x;
+      [nums[index], nums[index2]] = [nums[index2], nums[index]];
       index2 -= 1;
     } else {
-      index1 += 1;
+      index += 1;
     }
   }
-  return arr;
 }

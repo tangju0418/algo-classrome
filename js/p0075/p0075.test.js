@@ -22,7 +22,7 @@ test("sort a arr with '0,1,2'", () => {
       const keyStr = `arg${i}`;
       args.push(el[keyStr]);
     }
-
-    expect(sortColors.apply(this, args)).toEqual(el.target);
+    sortColors.apply(this, args);
+    expect(el.arg1).toEqual(el.target);
   });
 });
