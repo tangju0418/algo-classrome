@@ -15,20 +15,21 @@
 package p0078
 
 func subsets(nums []int) [][]int {
-	ret := make([][]int, 0) // TODO: 预分配容量
-	ret = append(ret, []int{})
+	ret, w := make([][]int, 1<<uint(len(nums))), 0
+	ret[w] = []int{}
+	w++
 
 	for _, num := range nums {
-		arrs, w := make([][]int, len(ret)), 0
-		for _, arr := range ret {
-			cp := make([]int, len(arr))
+		l := w
+		for i := 0; i < l; i++ {
+			arr := ret[i]
+			cp := make([]int, len(arr), len(arr)+1)
 			copy(cp, arr)
 			cp = append(cp, num)
-			arrs[w] = cp
+
+			ret[w] = cp
 			w++
 		}
-
-		ret = append(ret, arrs...)
 	}
 
 	return ret
