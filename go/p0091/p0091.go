@@ -14,28 +14,24 @@
 
 package p0091
 
-func numDecodings(s string) int { // TODO: 优化为 dp
-	_num1 := func(b byte) int {
-		return int(b - '0')
-	}
-	_num2 := func(b1 byte, b2 byte) int {
-		return _num1(b1)*10 + _num1(b2)
-	}
-
-	if len(s) > 0 && s[0] == '0' {
+func numDecodings(s string) int {
+	if 0 == len(s) || s[0] == '0' {
 		return 0
 	}
 
-	switch {
-	case 0 == len(s):
-		return 1
-	case 1 == len(s):
-		return 1
-	default:
-		count := numDecodings(s[1:len(s)])
-		if _num2(s[0], s[1]) <= 26 {
-			count += numDecodings(s[2:len(s)])
+	dp0, dp1 := 1, 1
+	for i := 1; i < len(s); i++ {
+		switch {
+		case s[i] == '0' && (s[i-1] > '2' || s[i-1] == '0'):
+			return 0
+		case s[i] == '0' || s[i-1] == '0':
+			dp1, dp0 = dp0, dp1
+		case s[i-1:i+1] <= "26":
+			dp1, dp0 = dp1+dp0, dp1
+		default:
+			dp1, dp0 = dp1, dp1
 		}
-		return count
 	}
+
+	return dp1
 }
