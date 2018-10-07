@@ -6,13 +6,14 @@
 */
 export default function removeDuplicates(nums) {
   const len = nums.length;
-  let indexDifferent = 0;
-  let currentNum = NaN;
-  let index = 0;
+  if (len === 0) {
+    return 0;
+  }
+  let indexDifferent = 1;
+  let index = 1;
 
   while (index < len) {
-    if (nums[index] !== currentNum) {
-      currentNum = nums[index];
+    if (nums[index] !== nums[indexDifferent - 1]) {
       nums[indexDifferent] = nums[index];
       indexDifferent += 1;
     }

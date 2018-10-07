@@ -15,6 +15,10 @@ test('delete repeat number in a sorted array', () => {
       arg1: [1, 2, 3],
       target: [1, 2, 3],
     },
+    {
+      arg1: [],
+      target: [],
+    },
   ];
   testArr.forEach((el) => {
     const args = [];
