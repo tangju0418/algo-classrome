@@ -23,6 +23,18 @@ test('return the length of the longest substring that has no repeat word', () =>
       arg1: ' ',
       target: 1,
     },
+    {
+      arg1: 'aab',
+      target: 2,
+    },
+    {
+      arg1: 'add',
+      target: 2,
+    },
+    {
+      arg1: 'abba',
+      target: 2,
+    },
   ];
   testArr.forEach((el) => {
     const args = [];
