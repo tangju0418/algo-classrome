@@ -4,9 +4,9 @@ export default function isValid(s) {
   const len = s.length;
   const leftBrackets = new Set(['(', '[', '{']);
   const theRightBrackets = {
-    '(': ')',
-    '[': ']',
-    '{': '}',
+    '()': true,
+    '[]': true,
+    '{}': true,
   };
   let i = 0;
   const diffrentStr = [];
@@ -14,7 +14,7 @@ export default function isValid(s) {
     const currentChar = s.charAt(i);
     if (!leftBrackets.has(currentChar)) {
       const lastChar = diffrentStr.pop();
-      if (theRightBrackets[lastChar] !== currentChar) {
+      if (!theRightBrackets[lastChar + currentChar]) {
         return false;
       }
     } else {
