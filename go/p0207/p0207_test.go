@@ -31,21 +31,21 @@ type result struct {
 }
 
 var values = []result{
-	// {
-	// 	arg1: 2,
-	// 	arg2: [][]int{
-	// 		[]int{1, 0},
-	// 	},
-	// 	target: true,
-	// },
-	// {
-	// 	arg1: 2,
-	// 	arg2: [][]int{
-	// 		[]int{1, 0},
-	// 		[]int{0, 1},
-	// 	},
-	// 	target: false,
-	// },
+	{
+		arg1: 2,
+		arg2: [][]int{
+			[]int{1, 0},
+		},
+		target: true,
+	},
+	{
+		arg1: 2,
+		arg2: [][]int{
+			[]int{1, 0},
+			[]int{0, 1},
+		},
+		target: false,
+	},
 	{
 		arg1: 3,
 		arg2: [][]int{
