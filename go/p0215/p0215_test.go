@@ -41,6 +41,11 @@ var values = []result{
 		arg2:   4,
 		target: 4,
 	},
+	{
+		arg1:   []int{7, 6, 5, 4, 3, 2, 1},
+		arg2:   5,
+		target: 3,
+	},
 }
 
 func (s *p0215TestSuite) Test() {
