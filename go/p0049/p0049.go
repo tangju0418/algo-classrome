@@ -32,8 +32,16 @@ func groupAnagrams(strs []string) [][]string {
 		maps[v] = append(maps[v], str)
 	}
 
+	keys, w := make([]string, len(maps)), 0
+	for k := range maps {
+		keys[w] = k
+		w++
+	}
+	sort.Strings(keys)
+
 	ret, w := make([][]string, len(maps)), 0
-	for _, v := range maps {
+	for _, k := range keys {
+		v := maps[k]
 		sort.Strings(v)
 		ret[w] = v
 		w++
