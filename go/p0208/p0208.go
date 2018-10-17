@@ -19,13 +19,16 @@ import (
 	"strings"
 )
 
-type Node struct {
-	key      string
-	end      bool
-	children []*Node
+type trieNode struct {
+	key   string
+	count int
+
+	children []*trieNode
 }
 
-func commonPrefix(s1 string, s2 string) string {
+// CommonPrefix returns s1 and s2's equal prefix string
+func CommonPrefix(s1 string, s2 string) string {
+	// Keep s1.len <= s2.len
 	if len(s1) > len(s2) {
 		s1, s2 = s2, s1
 	}
@@ -35,155 +38,154 @@ func commonPrefix(s1 string, s2 string) string {
 			return s1[0:i]
 		}
 	}
-
 	return s1
 }
 
-func (n *Node) Insert(word string) {
-	if n.key == word {
-		n.end = true
+// TrimPrefix delete prefix in s1, is arg prefix fit s1, it will return true
+func TrimPrefix(s1 string, prefix string) (string, bool) {
+	if len(prefix) <= len(s1) && s1[0:len(prefix)] == prefix {
+		return s1[len(prefix):], true
+	}
+
+	return s1, false
+}
+
+func (n *trieNode) Add(value string) {
+	if n.key == value {
+		n.key = value
+		n.count++
 		return
 	}
 
-	// fmt.Println("Insert: key(", n.key, "), word(", word, ")")
+	if n.key == "" { // root node
+		for _, child := range n.children {
+			if child.key[0] == value[0] {
+				child.Add(value)
+				return
+			}
+		}
 
-	if (len(n.key) != 0 && !strings.HasPrefix(word, n.key)) || len(word) < len(n.key) { // split node
-		prefix := commonPrefix(word, n.key)
-		// fmt.Println("commonPrefix: ", prefix)
-		key := n.key
+		n.children = append(n.children, &trieNode{
+			key:      value,
+			count:    1,
+			children: []*trieNode{},
+		})
+		return
+	}
+
+	prefix := CommonPrefix(value, n.key)
+	if prefix == "" { // no common prefix, panic
+		panic(fmt.Sprintf("TrieNode Add: key %s and value %s has no common prefix", n.key, value))
+	}
+
+	switch {
+	case prefix == value: // split current node
+		n.children = []*trieNode{
+			{
+				key:      n.key[len(prefix):],
+				count:    n.count,
+				children: n.children,
+			},
+		}
 		n.key = prefix
-
-		// key = strings.Replace(key, prefix, "", -1)
-		if key == prefix {
-			key = ""
-		} else {
-			key = key[len(prefix):]
-		}
-		if word == prefix {
-			word = ""
-		} else {
-			word = word[len(prefix):]
-		}
-
-		if word == "" {
-			n.children = []*Node{
-				&Node{
-					key:      key,
-					end:      n.end,
-					children: n.children,
-				},
+		n.count = 1
+		return
+	case prefix == n.key:
+		value = value[len(prefix):]
+		for _, child := range n.children {
+			if child.key[0] == value[0] {
+				child.Add(value)
+				return
 			}
-			n.end = true
-		} else {
-			n.children = []*Node{
-				&Node{
-					key:      key,
-					end:      n.end,
-					children: n.children,
-				},
-				&Node{
-					key:      word,
-					end:      true,
-					children: []*Node{},
-				},
-			}
-			n.end = false
 		}
-
+		n.children = append(n.children, &trieNode{
+			key:      value,
+			count:    1,
+			children: []*trieNode{},
+		})
 		return
 	}
 
-	// word = strings.Replace(word, n.key, "", -1)
-	word = word[len(n.key):]
-	for _, child := range n.children {
-		if word[0] == child.key[0] {
-			child.Insert(word)
-			return
-		}
+	// split current node and has two child
+	key := n.key[len(prefix):]
+	value = value[len(prefix):]
+	n.children = []*trieNode{
+		{
+			key:      key,
+			count:    n.count,
+			children: n.children,
+		},
+		{
+			key:      value,
+			count:    1,
+			children: []*trieNode{},
+		},
 	}
-
-	n.children = append(n.children, &Node{
-		key:      word,
-		end:      true,
-		children: make([]*Node, 0),
-	})
+	n.count = 0
+	n.key = prefix
 	return
 }
 
-func (n *Node) Search(word string) bool {
-	if len(word) < len(n.key) {
-		return false
+func (n *trieNode) Search(value string) bool {
+	if value == n.key {
+		return n.count > 0
 	}
 
-	if n.key == word {
-		return n.end
-	}
-
-	if commonPrefix(word, n.key) != n.key {
-		return false
-	}
-
-	// word = strings.Replace(word, n.key, "", -1)
-	word = word[len(n.key):len(word)]
-
-	if word == "" {
-		fmt.Println("PANIC: Search word is empty")
-	}
-
-	for _, child := range n.children {
-		if child.key[0] == word[0] {
-			return child.Search(word)
+	// len(value) > len(n.key), need search in child node if n.key is the prefix of value
+	isPrefix := false
+	if value, isPrefix = TrimPrefix(value, n.key); isPrefix {
+		for _, child := range n.children {
+			if child.key[0] == value[0] {
+				return child.Search(value)
+			}
 		}
 	}
+
 	return false
 }
 
-func (n *Node) StartsWith(prefix string) bool {
-	if n.key == prefix {
-		return true
+func (n *trieNode) StartsWith(value string) bool {
+	if len(value) == len(n.key) {
+		return n.key == value
 	}
 
-	// fmt.Println("StartsWith: key(", n.key, "), prefix(", prefix, ")")
-	if len(prefix) < len(n.key) {
-		return strings.HasPrefix(n.key, prefix)
+	switch {
+	case len(value) == len(n.key):
+		return n.key == value
+	case len(value) < len(n.key):
+		return strings.HasPrefix(n.key, value)
 	}
 
-	if !strings.HasPrefix(prefix, n.key) {
-		return false
-	}
-
-	// prefix = strings.Replace(prefix, n.key, "", -1)
-	prefix = prefix[len(n.key):len(prefix)]
-	if prefix == "" {
-		fmt.Println("PANIC: StartsWith prefix is empty")
-	}
-
-	for _, child := range n.children {
-		if child.key[0] == prefix[0] {
-			return child.StartsWith(prefix)
+	// len(value) > len(n.key), process into child, n.key should be value's prefix
+	isPrefix := false
+	if value, isPrefix = TrimPrefix(value, n.key); isPrefix {
+		for _, child := range n.children {
+			if child.key[0] == value[0] {
+				return child.StartsWith(value)
+			}
 		}
 	}
 	return false
 }
 
 type Trie struct {
-	n *Node
+	n *trieNode
 }
 
 /** Initialize your data structure here. */
 func Constructor() Trie {
 	return Trie{
-		n: &Node{
+		n: &trieNode{
 			key:      "",
-			end:      false,
-			children: make([]*Node, 0),
+			count:    0,
+			children: make([]*trieNode, 0),
 		},
 	}
 }
 
 /** Inserts a word into the trie. */
 func (this *Trie) Insert(word string) {
-	this.n.Insert(word)
+	this.n.Add(word)
 }
 
 /** Returns if the word is in the trie. */

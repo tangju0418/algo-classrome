@@ -25,8 +25,8 @@ type p0208TestSuite struct {
 	suite.Suite
 }
 
-func printTrie(n *Node, prefix string) {
-	fmt.Println(prefix, ": ", n.key, " ", n.end)
+func printTrie(n *trieNode, prefix string) {
+	fmt.Println(prefix, ": ", n.key, " ", n.count)
 	for _, child := range n.children {
 		printTrie(child, "  "+prefix)
 	}
@@ -162,7 +162,7 @@ func (s *p0208TestSuite) Test01() {
 	}
 }
 
-func (s *p0208TestSuite) TTest() {
+func (s *p0208TestSuite) Test() {
 	trie := Constructor()
 	insertWord := []string{"abc", "acd", "abcd", "ade"}
 	startsCases := []struct {
