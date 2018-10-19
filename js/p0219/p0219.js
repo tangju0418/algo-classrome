@@ -4,8 +4,8 @@ export default function containsNearbyDuplicate(nums, k) {
   const m = new Map();
   for (let i = 0; i < len; i += 1) {
     const num = nums[i];
-    const equalNum = m.get(num);
-    if (equalNum !== undefined && Math.abs(i - equalNum) <= k) {
+    const numLastIndex = m.get(num);
+    if (numLastIndex !== undefined && i - numLastIndex <= k) {
       return true;
     }
     m.set(num, i);
