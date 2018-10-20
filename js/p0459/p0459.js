@@ -1,5 +1,7 @@
 // repeated-substring-pattern
 export default function repeatedSubstringPattern(s) {
+  // const n = s + s;
+  // return n.slice(1, n.length - 1).indexOf(s) !== -1;
   const len = s.length;
   if (len <= 1) {
     return false;
