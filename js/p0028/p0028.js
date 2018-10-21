@@ -1,9 +1,5 @@
 // implement indexOf
 export default function strStr(haystack, needle) {
-  if (needle === '') {
-    return 0;
-  }
-
   const len = haystack.length;
   const tarLen = needle.length;
 
