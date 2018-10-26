@@ -12,22 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package p0274
+package p0275
 
-import (
-	"sort"
-)
-
-// 二分查找见: p0275
 func hIndex(citations []int) int {
-	sort.Ints(citations)
-
-	for i := 0; i < len(citations); i++ {
-		nums := len(citations) - i
-		if citations[i] >= nums {
-			return nums
+	l := len(citations)
+	low, high := 0, l-1
+	for low <= high {
+		mid := low + (high-low)>>1
+		if citations[mid] >= l-mid {
+			high = mid - 1
+		} else {
+			low = mid + 1
 		}
 	}
 
-	return 0
+	return l - low
 }

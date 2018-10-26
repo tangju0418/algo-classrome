@@ -12,22 +12,49 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package p0274
+package p0275
 
 import (
-	"sort"
+	"testing"
+
+	"github.com/stretchr/testify/suite"
 )
 
-// 二分查找见: p0275
-func hIndex(citations []int) int {
-	sort.Ints(citations)
+type p0275TestSuite struct {
+	suite.Suite
+}
 
-	for i := 0; i < len(citations); i++ {
-		nums := len(citations) - i
-		if citations[i] >= nums {
-			return nums
-		}
+type result struct {
+	arg1   []int
+	target int
+}
+
+var values = []result{
+	{
+		arg1:   []int{0, 1, 3, 5, 6},
+		target: 3,
+	},
+	{
+		arg1:   []int{1},
+		target: 1,
+	},
+	{
+		arg1:   []int{0},
+		target: 0,
+	},
+	{
+		arg1:   []int{},
+		target: 0,
+	},
+}
+
+func (s *p0275TestSuite) Test() {
+	for _, v := range values {
+		s.Equal(v.target, hIndex(v.arg1))
 	}
+}
 
-	return 0
+func TestP0275TestSuite(t *testing.T) {
+	s := &p0275TestSuite{}
+	suite.Run(t, s)
 }
