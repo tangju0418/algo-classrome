@@ -14,55 +14,83 @@
 
 package p0053
 
-func maxSubArray(nums []int) int {
-	// sum, curr := 0-0xFFFFFFFF, 0
-	// for i := 0; i < len(nums); i++ {
-	// 	curr += nums[i]
-	// 	if curr > sum {
-	// 		sum = curr
-	// 	}
+import (
+	"math"
+)
 
-	// 	if curr < 0 {
-	// 		curr = 0
-	// 	}
-	// }
-	// return sum
-	maxFn := func(v1 int, v2 int) int {
+func maxSubArray(nums []int) int {
+	_max := func(v1 int, v2 int) int {
 		if v1 > v2 {
 			return v1
 		}
 		return v2
 	}
 
-	if 1 == len(nums) {
-		return nums[0]
-	} else if 0 == len(nums) {
-		return 0 - 0xFFFFFFFF
-	}
+	_f1 := func(nums []int) int {
+		max, curr := nums[0], 0
+		for i := 0; i < len(nums); i++ {
+			curr += nums[i]
+			if curr > max {
+				max = curr
+			}
 
-	mid := len(nums) / 2
-	maxLeft := maxSubArray(nums[:mid])
-	maxRight := maxSubArray(nums[mid:len(nums)])
-
-	maxLeftMid := 0 - 0xFFFFFFFF
-	currMaxLeftMid := 0
-	for i := mid - 1; i >= 0; i-- {
-		currMaxLeftMid += nums[i]
-		if currMaxLeftMid > maxLeftMid {
-			maxLeftMid = currMaxLeftMid
+			if curr < 0 {
+				curr = 0
+			}
 		}
+		return max
 	}
+	_ = _f1
 
-	maxRightMid := 0 - 0xFFFFFFFF
-	currMaxRightMid := 0
-	for i := mid; i < len(nums); i++ {
-		currMaxRightMid += nums[i]
-		if currMaxRightMid > maxRightMid {
-			maxRightMid = currMaxRightMid
+	_f2 := func(nums []int) int {
+		if 1 == len(nums) {
+			return nums[0]
+		} else if 0 == len(nums) {
+			return math.MinInt32
 		}
+
+		mid := len(nums) / 2
+		maxLeft := maxSubArray(nums[:mid])
+		maxRight := maxSubArray(nums[mid:len(nums)])
+
+		maxLeftMid := 0 - 0xFFFFFFFF
+		currMaxLeftMid := 0
+		for i := mid - 1; i >= 0; i-- {
+			currMaxLeftMid += nums[i]
+			if currMaxLeftMid > maxLeftMid {
+				maxLeftMid = currMaxLeftMid
+			}
+		}
+
+		maxRightMid := 0 - 0xFFFFFFFF
+		currMaxRightMid := 0
+		for i := mid; i < len(nums); i++ {
+			currMaxRightMid += nums[i]
+			if currMaxRightMid > maxRightMid {
+				maxRightMid = currMaxRightMid
+			}
+		}
+
+		maxMidSum := maxLeftMid + maxRightMid
+
+		return _max(_max(maxLeft, maxRight), maxMidSum)
 	}
+	_ = _f2
 
-	maxMidSum := maxLeftMid + maxRightMid
+	_f3 := func(nums []int) int {
+		max, last := nums[0], 0
 
-	return maxFn(maxFn(maxLeft, maxRight), maxMidSum)
+		for i := 0; i < len(nums); i++ {
+			m := _max(nums[i], last+nums[i])
+			if m > max {
+				max = m
+			}
+			last = m
+		}
+
+		return max
+	}
+	_ = _f3
+
+	return _f3(nums)
 }
