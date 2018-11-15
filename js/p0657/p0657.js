@@ -1,4 +1,4 @@
-// /robot-return-to-origin
+// robot-return-to-origin
 export default function judgeCircle(moves) {
   const len = moves.length;
   let lr = 0;
